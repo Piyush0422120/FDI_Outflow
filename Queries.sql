@@ -7,15 +7,15 @@ USE Fdi_outflow;
 SELECT 'Instrument', 'Total','Contribution_percent'
 UNION ALL
 SELECT 'Equity' , ROUND(SUM(Equity_usd_million),3),ROUND(SUM(Equity_usd_million)/(SELECT SUM(Total)
-																				  FROM outflow)*100,3) 
+										  FROM outflow)*100,3) 
 FROM Outflow
 UNION ALL
 SELECT	'Loans' , ROUND(SUM(Loan_usd_million),3), ROUND(SUM(loan_usd_million)/(SELECT SUM(Total)
-																			   FROM outflow)*100,3)  
+									       FROM outflow)*100,3)  
 FROM outflow 
 UNION ALL
 SELECT  'Gurantees', ROUND(SUM(Guarantee_Issued_usd_million),3),ROUND(SUM(Guarantee_Issued_usd_million)/(SELECT SUM(Total)
-																							 FROM outflow)*100,3)  
+													 FROM outflow)*100,3)  
 FROM outflow ;
 
 -- ------------------------------------------------
@@ -23,9 +23,9 @@ FROM outflow ;
 -- Selecting month_name, outflow, contribution in total FDI outflow in Q1
 
 SELECT Month_name,
-	   ROUND(SUM(Total),3) AS Outflow_in_million,
-	   ROUND(SUM(Total)/(SELECT SUM(Total) 
-						 FROM outflow)*100,3) AS contribution_percent
+       ROUND(SUM(Total),3) AS Outflow_in_million,
+       ROUND(SUM(Total)/(SELECT SUM(Total) 
+			 FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY Month_name;
 
@@ -34,9 +34,9 @@ GROUP BY Month_name;
 -- Selecting month_name, outflow, contribution in total equity outflow in Q1
 
 SELECT Month_name,
-	   ROUND(SUM(equity_usd_million),3) AS Equity_Outflow_in_million,
-	   ROUND(SUM(equity_usd_million)/(SELECT SUM(equity_usd_million) 
-						 FROM outflow)*100,3) AS contribution_percent
+       ROUND(SUM(equity_usd_million),3) AS Equity_Outflow_in_million,
+       ROUND(SUM(equity_usd_million)/(SELECT SUM(equity_usd_million) 
+				      FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY Month_name;
 
@@ -45,9 +45,9 @@ GROUP BY Month_name;
 -- Selecting month_name, outflow, contribution in total loan outflow in Q1
 
 SELECT Month_name,
-	   ROUND(SUM(Loan_usd_million),3) AS Loan_Outflow_in_million,
-	   ROUND(SUM(Loan_usd_million)/(SELECT SUM(Loan_usd_million) 
-						 FROM outflow)*100,3) AS contribution_percent
+       ROUND(SUM(Loan_usd_million),3) AS Loan_Outflow_in_million,
+       ROUND(SUM(Loan_usd_million)/(SELECT SUM(Loan_usd_million) 
+				    FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY Month_name;
 
@@ -56,9 +56,9 @@ GROUP BY Month_name;
 -- Selecting month_name, outflow, contribution in total gurantees outflow in Q1
 
 SELECT Month_name,
-	   ROUND(SUM(Guarantee_Issued_usd_million),3) AS gurantees_Outflow_in_million,
-	   ROUND(SUM(Guarantee_Issued_usd_million)/(SELECT SUM(Guarantee_Issued_usd_million) 
-						 FROM outflow)*100,3) AS contribution_percent
+       ROUND(SUM(Guarantee_Issued_usd_million),3) AS gurantees_Outflow_in_million,
+       ROUND(SUM(Guarantee_Issued_usd_million)/(SELECT SUM(Guarantee_Issued_usd_million) 
+						FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY Month_name;
 
@@ -67,9 +67,9 @@ GROUP BY Month_name;
 -- Top 20 Indian companies with biggest Total Outflow
 
 SELECT Indian_party,
-	   ROUND(SUM(Total),3) AS Total_FDI_Outflow_millions_USD,
+       ROUND(SUM(Total),3) AS Total_FDI_Outflow_millions_USD,
        ROUND(SUM(Total)/(SELECT SUM(Total) 
-						 FROM outflow)*100,3) AS contribution_percent
+			 FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY Indian_party
 ORDER BY Total_fdi_outflow_millions_USD DESC
@@ -81,9 +81,9 @@ LIMIT 20;
 
 SELECT JVorWOS_name AS Overseas_company,
        Overseas_country,
-	   ROUND(SUM(Total),3) AS Total_FDI_inflow_millions_USD,
+       ROUND(SUM(Total),3) AS Total_FDI_inflow_millions_USD,
        ROUND(SUM(Total)/(SELECT SUM(Total) 
-						 FROM outflow)*100,3) AS contribution_percent
+			 FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY JVorWOS_name, Overseas_country
 ORDER BY Total_fdi_inflow_millions_USD DESC
@@ -94,9 +94,9 @@ LIMIT 20;
 -- FDI outflow according its nature (Joint Venture or WOS- Wholly Owned Subsidiary)
 
 SELECT JV_or_Wos,
-	   ROUND(SUM(Total),3) AS Total_FDI,
+       ROUND(SUM(Total),3) AS Total_FDI,
        ROUND(SUM(Total)/(SELECT SUM(Total) 
-						 FROM outflow)*100,3) AS contribution_percent
+			 FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY JV_or_WOS;
 
@@ -105,9 +105,9 @@ GROUP BY JV_or_WOS;
 -- Selecting countries according to FDI outflow
 
 SELECT Overseas_country,
-	   ROUND(SUM(Total),3) AS Total_FDI,
+       ROUND(SUM(Total),3) AS Total_FDI,
        ROUND(SUM(Total)/(SELECT SUM(Total) 
-						 FROM outflow)*100,3) AS contribution_percent
+			 FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY Overseas_country
 ORDER BY Total_FDI DESC;
@@ -117,9 +117,9 @@ ORDER BY Total_FDI DESC;
 -- Selecting countries according to equity outflow
 
 SELECT Overseas_country,
-	   ROUND(SUM(Equity_usd_million),3) AS Total_equity_FDI,
+       ROUND(SUM(Equity_usd_million),3) AS Total_equity_FDI,
        ROUND(SUM(Equity_usd_million)/(SELECT SUM(Equity_usd_million) 
-						 FROM outflow)*100,3) AS contribution_percent
+				      FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY Overseas_country
 ORDER BY Total_equity_FDI DESC;
@@ -129,9 +129,9 @@ ORDER BY Total_equity_FDI DESC;
 -- Selecting countries according to loan outflow
 
 SELECT Overseas_country,
-	   ROUND(SUM(Loan_usd_million),3) AS Total_loan_FDI,
+       ROUND(SUM(Loan_usd_million),3) AS Total_loan_FDI,
        ROUND(SUM(Loan_usd_million)/(SELECT SUM(Loan_usd_million) 
-						 FROM outflow)*100,3) AS contribution_percent
+				    FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY Overseas_country
 ORDER BY Total_loan_FDI DESC;
@@ -141,9 +141,9 @@ ORDER BY Total_loan_FDI DESC;
 -- Selecting countries according to gurantees outflow
 
 SELECT Overseas_country,
-	   ROUND(SUM(Guarantee_Issued_usd_million),3) AS Total_gurantee_FDI,
+       ROUND(SUM(Guarantee_Issued_usd_million),3) AS Total_gurantee_FDI,
        ROUND(SUM(Guarantee_Issued_usd_million)/(SELECT SUM(Guarantee_Issued_usd_million) 
-						 FROM outflow)*100,3) AS contribution_percent
+						FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY Overseas_country
 ORDER BY Total_gurantee_FDI DESC;
@@ -153,9 +153,9 @@ ORDER BY Total_gurantee_FDI DESC;
 -- Selecting activities according to FDI outflow
 
 SELECT Activity,
-	   ROUND(SUM(Total),3) AS Total_FDI,
+       ROUND(SUM(Total),3) AS Total_FDI,
        ROUND(SUM(Total)/(SELECT SUM(Total) 
-						 FROM outflow)*100,3) AS contribution_percent
+		         FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY Activity
 ORDER BY Total_FDI DESC;
@@ -165,9 +165,9 @@ ORDER BY Total_FDI DESC;
 -- Selecting activities according to equity outflow
 
 SELECT activity,
-	   ROUND(SUM(Equity_usd_million),3) AS Total_equity_FDI,
+       ROUND(SUM(Equity_usd_million),3) AS Total_equity_FDI,
        ROUND(SUM(Equity_usd_million)/(SELECT SUM(Equity_usd_million) 
-						 FROM outflow)*100,3) AS contribution_percent
+				      FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY activity
 ORDER BY Total_equity_FDI DESC;
@@ -177,9 +177,9 @@ ORDER BY Total_equity_FDI DESC;
 -- Selecting countries according to loan outflow
 
 SELECT Activity,
-	   ROUND(SUM(Loan_usd_million),3) AS Total_loan_FDI,
+       ROUND(SUM(Loan_usd_million),3) AS Total_loan_FDI,
        ROUND(SUM(Loan_usd_million)/(SELECT SUM(Loan_usd_million) 
-						 FROM outflow)*100,3) AS contribution_percent
+				    FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY Activity
 ORDER BY Total_loan_FDI DESC;
@@ -189,9 +189,9 @@ ORDER BY Total_loan_FDI DESC;
 -- Selecting countries according to gurantees outflow
 
 SELECT Activity,
-	   ROUND(SUM(Guarantee_Issued_usd_million),3) AS Total_gurantee_FDI,
+       ROUND(SUM(Guarantee_Issued_usd_million),3) AS Total_gurantee_FDI,
        ROUND(SUM(Guarantee_Issued_usd_million)/(SELECT SUM(Guarantee_Issued_usd_million) 
-						 FROM outflow)*100,3) AS contribution_percent
+						FROM outflow)*100,3) AS contribution_percent
 FROM outflow
 GROUP BY Activity
 ORDER BY Total_gurantee_FDI DESC;
@@ -247,8 +247,8 @@ WHERE Total<0.0001;
 SELECT *
 FROM Outflow 
 WHERE (Overseas_country,Total) IN (SELECT Overseas_country, MAX(total) 
-								   FROM outflow
-								   GROUP BY Overseas_country)
+				   FROM outflow
+				   GROUP BY Overseas_country)
 ORDER BY Total DESC;
                                    
 -- ------------------------------------------------
@@ -258,8 +258,8 @@ ORDER BY Total DESC;
 SELECT *
 FROM Outflow 
 WHERE (Activity,Total) IN (SELECT Activity, MAX(total) 
-								   FROM outflow
-								   GROUP BY Activity)
+			   FROM outflow
+		           GROUP BY Activity)
 ORDER BY Total DESC;
 
 -- DONE--------------------------------------------------------
